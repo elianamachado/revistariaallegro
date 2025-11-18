@@ -494,6 +494,23 @@ section {
   text-decoration: underline;
 }
 
+.map-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, var(--sage-green) 0%, var(--sage-dark) 100%);
+  color: white !important;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.map-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(107, 142, 112, 0.3);
+  text-decoration: none !important;
+}
+
 .cta-box {
   background: linear-gradient(135deg, var(--sage-green) 0%, var(--sage-dark) 100%);
   padding: 3rem;
