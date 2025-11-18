@@ -1,52 +1,326 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import { BookOpen, MapPin, Phone, Instagram, Clock, Heart, Star, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+function App() {
+  const [activeSection, setActiveSection] = useState('home');
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'historia', 'produtos', 'diferenciais', 'localizacao'];
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
+  const produtos = [
+    { icon: "📚", nome: "Revistas", descricao: "Variedade de títulos nacionais e importados" },
+    { icon: "🗞️", nome: "Jornais", descricao: "Principais jornais diários e semanais" },
+    { icon: "📕", nome: "Gibis", descricao: "Quadrinhos clássicos e lançamentos" },
+    { icon: "🃏", nome: "Álbuns de Figurinhas", descricao: "Figurinhas e álbuns de coleção" },
+    { icon: "✏️", nome: "Passatempos", descricao: "Caça-palavras, cruzadas, sudoku" },
+    { icon: "⚡", nome: "Cards Pokémon", descricao: "Cartinhas e itens colecionáveis" },
+    { icon: "👾", nome: "HQs", descricao: "História em quadrinhos variadas" },
+    { icon: "🥥", nome: "Conveniência", descricao: "Água de coco, refrigerantes, snacks" },
+  ];
 
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+  const diferenciais = [
+    {
+      icon: <Clock className="w-8 h-8" />,
+      titulo: "18 Anos de Tradição",
+      descricao: "Preservando a cultura das revistarias desde 2007"
+    },
+    {
+      icon: <Heart className="w-8 h-8" />,
+      titulo: "Atendimento Personalizado",
+      descricao: "Conheça seus gostos e sempre encontre o que procura"
+    },
+    {
+      icon: <Star className="w-8 h-8" />,
+      titulo: "Variedade Única",
+      descricao: "De clássicos a lançamentos, tudo em um só lugar"
+    },
+    {
+      icon: <Sparkles className="w-8 h-8" />,
+      titulo: "Experiência Nostálgica",
+      descricao: "O prazer de folhear páginas reais"
+    }
+  ];
 
-function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      {/* Navigation */}
+      <nav className="navbar" data-testid="main-navigation">
+        <div className="nav-container">
+          <div className="nav-brand" data-testid="brand-logo">Allegro</div>
+          <div className="nav-links">
+            <button 
+              className={activeSection === 'home' ? 'active' : ''} 
+              onClick={() => scrollToSection('home')}
+              data-testid="nav-home-btn"
+            >
+              Início
+            </button>
+            <button 
+              className={activeSection === 'historia' ? 'active' : ''} 
+              onClick={() => scrollToSection('historia')}
+              data-testid="nav-historia-btn"
+            >
+              História
+            </button>
+            <button 
+              className={activeSection === 'produtos' ? 'active' : ''} 
+              onClick={() => scrollToSection('produtos')}
+              data-testid="nav-produtos-btn"
+            >
+              Produtos
+            </button>
+            <button 
+              className={activeSection === 'localizacao' ? 'active' : ''} 
+              onClick={() => scrollToSection('localizacao')}
+              data-testid="nav-localizacao-btn"
+            >
+              Contato
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section id="home" className="hero-section" data-testid="hero-section">
+        <div className="hero-content">
+          <div className="hero-badge" data-testid="hero-badge">Desde 2007</div>
+          <h1 className="hero-title" data-testid="hero-title">
+            Revistaria <span className="title-highlight">Allegro</span>
+          </h1>
+          <p className="hero-subtitle" data-testid="hero-subtitle">
+            Preservando a magia da leitura há 18 anos no coração do Sam's Club Campinas
+          </p>
+          <div className="hero-buttons">
+            <Button 
+              className="btn-primary" 
+              size="lg"
+              onClick={() => scrollToSection('produtos')}
+              data-testid="hero-products-btn"
+            >
+              <BookOpen className="w-5 h-5" />
+              Conheça Nossos Produtos
+            </Button>
+            <Button 
+              variant="outline" 
+              className="btn-secondary" 
+              size="lg"
+              onClick={() => window.open('https://www.instagram.com/revistaria_allegro/', '_blank')}
+              data-testid="hero-instagram-btn"
+            >
+              <Instagram className="w-5 h-5" />
+              Instagram
+            </Button>
+          </div>
+        </div>
+        <div className="hero-decoration">
+          <div className="floating-book book-1">📚</div>
+          <div className="floating-book book-2">📖</div>
+          <div className="floating-book book-3">📕</div>
+        </div>
+      </section>
+
+      {/* História Section */}
+      <section id="historia" className="historia-section" data-testid="historia-section">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title" data-testid="historia-title">Nossa História</h2>
+            <p className="section-subtitle" data-testid="historia-subtitle">
+              Uma jornada de 18 anos dedicada à cultura e ao conhecimento
+            </p>
+          </div>
+          <div className="historia-content">
+            <Card className="historia-card">
+              <CardContent className="historia-card-content" data-testid="historia-card">
+                <div className="historia-icon">🏪</div>
+                <h3>Tradição que Resiste ao Tempo</h3>
+                <p>
+                  Desde 2007, a Revistaria Allegro é um ponto de encontro cultural no Sam's Club de Campinas. 
+                  Em um mundo cada vez mais digital, mantemos viva a tradição das revistarias, onde o prazer 
+                  de folhear páginas reais e descobrir novos mundos permanece intacto.
+                </p>
+                <p>
+                  Localizada no subsolo do Sam's Club, somos mais que uma revistaria - somos um refúgio para 
+                  leitores, colecionadores e entusiastas da cultura impressa. Nossa missão é preservar essa 
+                  experiência única e proporcionar momentos especiais através da leitura.
+                </p>
+                <div className="historia-stats">
+                  <div className="stat-item" data-testid="stat-years">
+                    <div className="stat-number">18+</div>
+                    <div className="stat-label">Anos de História</div>
+                  </div>
+                  <div className="stat-item" data-testid="stat-customers">
+                    <div className="stat-number">1000+</div>
+                    <div className="stat-label">Clientes Mensais</div>
+                  </div>
+                  <div className="stat-item" data-testid="stat-products">
+                    <div className="stat-number">500+</div>
+                    <div className="stat-label">Produtos Diferentes</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Produtos Section */}
+      <section id="produtos" className="produtos-section" data-testid="produtos-section">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title" data-testid="produtos-title">Nossos Produtos</h2>
+            <p className="section-subtitle" data-testid="produtos-subtitle">
+              Uma variedade completa para todos os gostos e idades
+            </p>
+          </div>
+          <div className="produtos-grid">
+            {produtos.map((produto, index) => (
+              <Card key={index} className="produto-card" data-testid={`produto-card-${index}`}>
+                <CardContent className="produto-card-content">
+                  <div className="produto-icon">{produto.icon}</div>
+                  <h3 className="produto-nome">{produto.nome}</h3>
+                  <p className="produto-descricao">{produto.descricao}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Diferenciais Section */}
+      <section id="diferenciais" className="diferenciais-section" data-testid="diferenciais-section">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title" data-testid="diferenciais-title">Por Que Escolher a Allegro?</h2>
+            <p className="section-subtitle" data-testid="diferenciais-subtitle">
+              Mais que uma revistaria, uma experiência cultural
+            </p>
+          </div>
+          <div className="diferenciais-grid">
+            {diferenciais.map((item, index) => (
+              <div key={index} className="diferencial-item" data-testid={`diferencial-item-${index}`}>
+                <div className="diferencial-icon">{item.icon}</div>
+                <h3 className="diferencial-titulo">{item.titulo}</h3>
+                <p className="diferencial-descricao">{item.descricao}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Localização e Contato */}
+      <section id="localizacao" className="localizacao-section" data-testid="localizacao-section">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title" data-testid="localizacao-title">Venha Nos Visitar</h2>
+            <p className="section-subtitle" data-testid="localizacao-subtitle">
+              Estamos esperando por você no Sam's Club Campinas
+            </p>
+          </div>
+          <div className="localizacao-content">
+            <Card className="localizacao-card">
+              <CardContent className="localizacao-card-content" data-testid="localizacao-card">
+                <div className="localizacao-info">
+                  <div className="info-item" data-testid="info-endereco">
+                    <MapPin className="info-icon" />
+                    <div>
+                      <h4>Endereço</h4>
+                      <p>Sam's Club de Campinas</p>
+                      <p className="info-destaque">Subsolo / Piso do Estacionamento</p>
+                    </div>
+                  </div>
+                  <div className="info-item" data-testid="info-whatsapp">
+                    <Phone className="info-icon" />
+                    <div>
+                      <h4>WhatsApp</h4>
+                      <a href="https://wa.me/5519320703222" className="info-link" target="_blank" rel="noopener noreferrer">
+                        (19) 3207-0322
+                      </a>
+                    </div>
+                  </div>
+                  <div className="info-item" data-testid="info-instagram">
+                    <Instagram className="info-icon" />
+                    <div>
+                      <h4>Instagram</h4>
+                      <a 
+                        href="https://www.instagram.com/revistaria_allegro/" 
+                        className="info-link" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                      >
+                        @revistaria_allegro
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div className="cta-box" data-testid="cta-box">
+                  <h3>Venha tomar uma água de coco geladíssima! 🥥</h3>
+                  <p>Aproveite para conhecer nossa variedade de produtos enquanto relaxa</p>
+                  <Button 
+                    className="btn-whatsapp" 
+                    size="lg"
+                    onClick={() => window.open('https://wa.me/5519320703222', '_blank')}
+                    data-testid="cta-whatsapp-btn"
+                  >
+                    <Phone className="w-5 h-5" />
+                    Fale Conosco no WhatsApp
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer" data-testid="footer">
+        <div className="container">
+          <div className="footer-content">
+            <div className="footer-brand">
+              <h3>Revistaria Allegro</h3>
+              <p>Preservando a cultura da leitura desde 2007</p>
+            </div>
+            <div className="footer-links">
+              <a href="https://www.instagram.com/revistaria_allegro/" target="_blank" rel="noopener noreferrer" data-testid="footer-instagram">
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a href="https://wa.me/5519320703222" target="_blank" rel="noopener noreferrer" data-testid="footer-whatsapp">
+                <Phone className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+          <div className="footer-bottom">
+            <p>© 2025 Revistaria Allegro. Todos os direitos reservados.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
