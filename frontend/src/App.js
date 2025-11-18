@@ -252,14 +252,34 @@ function App() {
                     <MapPin className="info-icon" />
                     <div>
                       <h4>Endereço</h4>
-                      <p>Sam's Club de Campinas</p>
-                      <p className="info-destaque">Subsolo / Piso do Estacionamento</p>
+                      <p>Rod. Dom Pedro I, KM 132 - s/n</p>
+                      <p>Parque Imperador, Campinas - SP</p>
+                      <p>CEP: 13097-100</p>
+                      <p className="info-destaque">Sam's Club - Subsolo / Piso do Estacionamento</p>
+                      <a 
+                        href="https://www.google.com/maps/search/?api=1&query=Rod.+Dom+Pedro+I,+KM+132,+Parque+Imperador,+Campinas+-+SP,+13097-100" 
+                        className="info-link map-link" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        data-testid="maps-link"
+                      >
+                        📍 Ver no Google Maps
+                      </a>
+                    </div>
+                  </div>
+                  <div className="info-item" data-testid="info-telefone">
+                    <Phone className="info-icon" />
+                    <div>
+                      <h4>Telefone Sam's Club</h4>
+                      <a href="tel:+551933036200" className="info-link" target="_blank" rel="noopener noreferrer">
+                        (19) 3303-6200
+                      </a>
                     </div>
                   </div>
                   <div className="info-item" data-testid="info-whatsapp">
                     <Phone className="info-icon" />
                     <div>
-                      <h4>WhatsApp</h4>
+                      <h4>WhatsApp Revistaria</h4>
                       <a href="https://wa.me/5519320703222" className="info-link" target="_blank" rel="noopener noreferrer">
                         (19) 3207-0322
                       </a>
