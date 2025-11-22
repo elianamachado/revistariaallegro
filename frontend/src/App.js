@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
-import "@/App.css";
-import { BookOpen, MapPin, Phone, Instagram, Clock, Heart, Star, Sparkles } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import "./App.css";
 
 function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -48,22 +45,22 @@ function App() {
 
   const diferenciais = [
     {
-      icon: <Clock className="w-8 h-8" />,
+      icon: "🕐",
       titulo: "18 Anos de Tradição",
       descricao: "Preservando a cultura das revistarias desde 2007"
     },
     {
-      icon: <Heart className="w-8 h-8" />,
+      icon: "❤️",
       titulo: "Atendimento Personalizado",
-      descricao: "Conheça seus gostos e sempre encontre o que procura"
+      descricao: "Conhece seus gostos e sempre encontre o que procura"
     },
     {
-      icon: <Star className="w-8 h-8" />,
+      icon: "⭐",
       titulo: "Variedade Única",
       descricao: "De clássicos a lançamentos, tudo em um só lugar"
     },
     {
-      icon: <Sparkles className="w-8 h-8" />,
+      icon: "✨",
       titulo: "Experiência Nostálgica",
       descricao: "O prazer de folhear páginas reais"
     }
@@ -119,25 +116,20 @@ function App() {
             Preservando a magia da leitura há 18 anos no coração do Sam's Club Campinas
           </p>
           <div className="hero-buttons">
-            <Button 
-              className="btn-primary" 
-              size="lg"
+            <button 
+              className="btn btn-primary" 
               onClick={() => scrollToSection('produtos')}
               data-testid="hero-products-btn"
             >
-              <BookOpen className="w-5 h-5" />
-              Conheça Nossos Produtos
-            </Button>
-            <Button 
-              variant="outline" 
-              className="btn-secondary" 
-              size="lg"
+              📚 Conheça Nossos Produtos
+            </button>
+            <button 
+              className="btn btn-secondary" 
               onClick={() => window.open('https://www.instagram.com/revistaria_allegro/', '_blank')}
               data-testid="hero-instagram-btn"
             >
-              <Instagram className="w-5 h-5" />
-              Instagram
-            </Button>
+              📷 Instagram
+            </button>
           </div>
         </div>
         <div className="hero-decoration">
@@ -157,8 +149,8 @@ function App() {
             </p>
           </div>
           <div className="historia-content">
-            <Card className="historia-card">
-              <CardContent className="historia-card-content" data-testid="historia-card">
+            <div className="card historia-card">
+              <div className="card-content" data-testid="historia-card">
                 <div className="historia-icon">🏪</div>
                 <h3>Tradição que Resiste ao Tempo</h3>
                 <p>
@@ -185,8 +177,8 @@ function App() {
                     <div className="stat-label">Produtos Diferentes</div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -202,13 +194,13 @@ function App() {
           </div>
           <div className="produtos-grid">
             {produtos.map((produto, index) => (
-              <Card key={index} className="produto-card" data-testid={`produto-card-${index}`}>
-                <CardContent className="produto-card-content">
+              <div key={index} className="card produto-card" data-testid={`produto-card-${index}`}>
+                <div className="card-content">
                   <div className="produto-icon">{produto.icon}</div>
                   <h3 className="produto-nome">{produto.nome}</h3>
                   <p className="produto-descricao">{produto.descricao}</p>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -245,11 +237,11 @@ function App() {
             </p>
           </div>
           <div className="localizacao-content">
-            <Card className="localizacao-card">
-              <CardContent className="localizacao-card-content" data-testid="localizacao-card">
+            <div className="card localizacao-card">
+              <div className="card-content" data-testid="localizacao-card">
                 <div className="localizacao-info">
                   <div className="info-item" data-testid="info-endereco">
-                    <MapPin className="info-icon" />
+                    <div className="info-icon">📍</div>
                     <div>
                       <h4>Endereço</h4>
                       <p>Rod. Dom Pedro I, KM 132 - s/n</p>
@@ -268,16 +260,14 @@ function App() {
                     </div>
                   </div>
                   <div className="info-item" data-testid="info-telefone">
-                    <Phone className="info-icon" />
+                    <div className="info-icon">📞</div>
                     <div>
                       <h4>Telefone Sam's Club</h4>
-                      <a href="tel:+551933036200" className="info-link" target="_blank" rel="noopener noreferrer">
-                        (19) 3303-6200
-                      </a>
+                      <a href="tel:+551933036200" className="info-link">(19) 3303-6200</a>
                     </div>
                   </div>
                   <div className="info-item" data-testid="info-whatsapp">
-                    <Phone className="info-icon" />
+                    <div className="info-icon">💬</div>
                     <div>
                       <h4>WhatsApp Revistaria</h4>
                       <a href="https://wa.me/5519320703222" className="info-link" target="_blank" rel="noopener noreferrer">
@@ -286,7 +276,7 @@ function App() {
                     </div>
                   </div>
                   <div className="info-item" data-testid="info-instagram">
-                    <Instagram className="info-icon" />
+                    <div className="info-icon">📷</div>
                     <div>
                       <h4>Instagram</h4>
                       <a 
@@ -303,18 +293,16 @@ function App() {
                 <div className="cta-box" data-testid="cta-box">
                   <h3>Venha tomar uma água de coco geladíssima! 🥥</h3>
                   <p>Aproveite para conhecer nossa variedade de produtos enquanto relaxa</p>
-                  <Button 
-                    className="btn-whatsapp" 
-                    size="lg"
+                  <button 
+                    className="btn btn-whatsapp" 
                     onClick={() => window.open('https://wa.me/5519320703222', '_blank')}
                     data-testid="cta-whatsapp-btn"
                   >
-                    <Phone className="w-5 h-5" />
-                    Fale Conosco no WhatsApp
-                  </Button>
+                    💬 Fale Conosco no WhatsApp
+                  </button>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -329,10 +317,10 @@ function App() {
             </div>
             <div className="footer-links">
               <a href="https://www.instagram.com/revistaria_allegro/" target="_blank" rel="noopener noreferrer" data-testid="footer-instagram">
-                <Instagram className="w-5 h-5" />
+                📷
               </a>
               <a href="https://wa.me/5519320703222" target="_blank" rel="noopener noreferrer" data-testid="footer-whatsapp">
-                <Phone className="w-5 h-5" />
+                💬
               </a>
             </div>
           </div>
